@@ -2,6 +2,8 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import umap
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+
 
 # PCA
 def pca_plot(model):
@@ -13,6 +15,8 @@ def pca_plot(model):
         labels.append(word)
 
     pca_model = PCA(n_components=2)
+    sc = StandardScaler()
+    tokens = sc.fit_transform(tokens)
     new_values = pca_model.fit_transform(tokens)
 
     x = []
@@ -77,6 +81,8 @@ def umap_plot(model):
         labels.append(word)
 
     umap_model = umap.UMAP(n_neighbors=5, min_dist=0.3, metric="correlation")
+    sc = StandardScaler()
+    tokens = sc.fit_transform(tokens)
     new_values = umap_model.fit_transform(tokens)
 
     x = []
